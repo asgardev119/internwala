@@ -1,0 +1,2401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InternWala - Performance-Based Internships for Students</title>
+    <script src="/_sdk/element_sdk.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        overflow-x: hidden;
+        background: #0f0f1e;
+        color: #ffffff;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      /* Header */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        /* background: rgba(15, 15, 30, 0.95); */
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 16px 20px;
+        z-index: 1000;
+        transition: all 0.3s;
+      }
+
+      .header.scrolled {
+        background: rgba(15, 15, 30, 0.7);
+
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+      }
+
+      .header-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: #ffffff;
+      }
+
+      .logo-icon {
+        background: linear-gradient(135deg, #4f46e5, #9333ea);
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 700;
+        font-family: "Courier New", monospace;
+      }
+
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s;
+        position: relative;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #4f46e5, #9333ea);
+        transform: scaleX(0);
+        transition: transform 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #ffffff;
+      }
+
+      .nav-links a:hover::after {
+        transform: scaleX(1);
+      }
+
+      .header-btn {
+        background: linear-gradient(135deg, #4f46e5, #9333ea);
+        color: white;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .header-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 28px;
+        cursor: pointer;
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100%;
+        background: linear-gradient(
+          135deg,
+          #4f46e5 0%,
+          #7c3aed 50%,
+          #9333ea 100%
+        );
+        position: relative;
+        overflow: hidden;
+        padding: 140px 20px 80px;
+        display: flex;
+        align-items: center;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        top: -200px;
+        right: -200px;
+        animation: float 8s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-30px);
+        }
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-content {
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .hero-text h1 {
+        font-size: 64px;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 24px;
+        background: linear-gradient(to right, #ffffff, #e0e7ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-text p {
+        font-size: 22px;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 48px;
+        line-height: 1.6;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 60px;
+      }
+
+      .hero-btn-primary {
+        background: rgba(255, 255, 255, 0.95);
+        color: #4f46e5;
+        border: none;
+        padding: 18px 40px;
+        border-radius: 14px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+      }
+
+      .hero-btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+        background: #ffffff;
+      }
+
+      .hero-btn-secondary {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        color: #ffffff;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        padding: 16px 40px;
+        border-radius: 14px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .hero-btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-3px);
+      }
+
+      /* Stats Grid */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .stat-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 32px 24px;
+        text-align: center;
+        transition: all 0.3s;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-8px);
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+      }
+
+      .stat-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
+
+      .stat-number {
+        font-size: 36px;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 8px;
+        line-height: 1;
+      }
+
+      .stat-label {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 500;
+      }
+
+      /* Why Choose Section */
+      .why-choose {
+        padding: 80px 20px;
+        background: linear-gradient(180deg, #0f0f1e 0%, #1a1a2e 100%);
+      }
+
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .why-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(79, 70, 229, 0.3);
+        border-radius: 24px;
+        padding: 36px;
+        transition: all 0.4s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .why-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #4f46e5, #9333ea);
+        transform: scaleX(0);
+        transition: transform 0.4s;
+      }
+
+      .why-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(147, 51, 234, 0.6);
+        box-shadow: 0 24px 48px rgba(79, 70, 229, 0.3);
+      }
+
+      .why-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .why-icon {
+        font-size: 48px;
+        margin-bottom: 20px;
+      }
+
+      .why-card h3 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 12px;
+      }
+
+      .why-card p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      /* Categories Section */
+      .categories {
+        padding: 80px 20px;
+        background: #0f0f1e;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 60px;
+        background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .category-card {
+        background: rgba(79, 70, 229, 0.1);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(79, 70, 229, 0.3);
+        border-radius: 24px;
+        padding: 40px 30px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .category-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(79, 70, 229, 0.2),
+          rgba(147, 51, 234, 0.2)
+        );
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+
+      .category-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(147, 51, 234, 0.6);
+        box-shadow: 0 20px 40px rgba(79, 70, 229, 0.3);
+      }
+
+      .category-card:hover::before {
+        opacity: 1;
+      }
+
+      .category-icon {
+        font-size: 48px;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .category-card h3 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #ffffff;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Internships Section */
+      .internships {
+        padding: 80px 20px;
+        background: linear-gradient(180deg, #0f0f1e 0%, #1a1a2e 100%);
+      }
+
+      .internship-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .internship-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 28px;
+        padding: 30px;
+        transition: all 0.4s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .internship-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #4f46e5, #9333ea);
+        transform: scaleX(0);
+        transition: transform 0.4s;
+      }
+
+      .internship-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(147, 51, 234, 0.4);
+        box-shadow: 0 24px 48px rgba(79, 70, 229, 0.2);
+      }
+
+      .internship-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .company-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .company-logo {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #4f46e5, #9333ea);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 700;
+        color: white;
+      }
+
+      .company-info h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 4px;
+      }
+
+      .company-info p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .stipend-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+
+      .stipend-note {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 16px;
+        padding: 12px;
+        background: rgba(16, 185, 129, 0.1);
+        border-radius: 12px;
+        border-left: 3px solid #10b981;
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .skill-pill {
+        background: rgba(79, 70, 229, 0.2);
+        color: #a5b4fc;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        border: 1px solid rgba(79, 70, 229, 0.3);
+      }
+
+      .duration {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .apply-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #4f46e5, #9333ea);
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+      }
+
+      .apply-btn:hover {
+        transform: scale(1.02);
+        box-shadow: 0 12px 24px rgba(79, 70, 229, 0.4);
+      }
+
+      /* Companies Section */
+      .companies {
+        padding: 80px 20px;
+        background: #0f0f1e;
+      }
+
+      .companies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .company-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 40px 30px;
+        text-align: center;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .company-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(147, 51, 234, 0.4);
+        transform: translateY(-4px);
+      }
+
+      .company-card h4 {
+        font-size: 24px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #a5b4fc 0%, #c084fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        padding: 100px 20px;
+        background: linear-gradient(
+          135deg,
+          #4f46e5 0%,
+          #7c3aed 50%,
+          #9333ea 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-section::before {
+        content: "";
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        top: -150px;
+        left: -150px;
+        animation: float 8s ease-in-out infinite;
+      }
+
+      .cta-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .cta-content h2 {
+        font-size: 48px;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 20px;
+      }
+
+      .cta-content p {
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 40px;
+      }
+
+      .cta-btn {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.95);
+        color: #4f46e5;
+        padding: 18px 48px;
+        border-radius: 16px;
+        font-size: 18px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .cta-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+        background: #ffffff;
+      }
+
+      /* About Section */
+      .about {
+        padding: 80px 20px;
+        background: linear-gradient(135deg, #fdf2f8 0%, #fae8ff 100%);
+      }
+
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .about-text h2 {
+        font-size: 48px;
+        font-weight: 800;
+        color: #581c87;
+        margin-bottom: 24px;
+      }
+
+      .about-text p {
+        font-size: 18px;
+        color: #6b21a8;
+        line-height: 1.8;
+      }
+
+      .about-illustration {
+        display: flex;
+        justify-content: center;
+      }
+
+      /* Testimonials Section */
+      .testimonials {
+        padding: 80px 20px;
+        background: #0f0f1e;
+      }
+
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .testimonial-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 32px;
+        transition: all 0.3s;
+      }
+
+      .testimonial-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(147, 51, 234, 0.4);
+      }
+
+      .reviewer-info {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .reviewer-photo {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4f46e5, #9333ea);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 700;
+        color: white;
+      }
+
+      .reviewer-details h4 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 4px;
+      }
+
+      .stars {
+        color: #fbbf24;
+        font-size: 14px;
+      }
+
+      .testimonial-text {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      /* Certificate & Kit Showcase Section */
+      .certificate-kit-section {
+        padding: 80px 20px;
+        background: linear-gradient(180deg, #0f0f1e 0%, #1a1a2e 100%);
+      }
+
+      .section-subtitle {
+        text-align: center;
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 60px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .showcase-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        margin-bottom: 50px;
+      }
+
+      .showcase-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(79, 70, 229, 0.3);
+        border-radius: 24px;
+        padding: 30px;
+        transition: all 0.4s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .showcase-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #4f46e5, #9333ea);
+        transform: scaleX(0);
+        transition: transform 0.4s;
+      }
+
+      .showcase-card:hover {
+        transform: translateY(-10px);
+        border-color: rgba(147, 51, 234, 0.6);
+        box-shadow: 0 24px 48px rgba(79, 70, 229, 0.3);
+      }
+
+      .showcase-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .showcase-image-container {
+        width: 100%;
+        height: 220px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 16px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .showcase-content h3 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 12px;
+      }
+
+      .showcase-content p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 15px;
+        line-height: 1.6;
+      }
+
+      .showcase-note {
+        max-width: 900px;
+        margin: 0 auto;
+        background: rgba(79, 70, 229, 0.1);
+        border: 1px solid rgba(79, 70, 229, 0.3);
+        border-radius: 20px;
+        padding: 24px 32px;
+        text-align: center;
+      }
+
+      .showcase-note p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      .showcase-note strong {
+        color: #a5b4fc;
+        font-weight: 700;
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+        padding: 60px 20px 30px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-section h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #ffffff;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 12px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: #a5b4fc;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 20px;
+        transition: all 0.3s;
+      }
+
+      .social-icon:hover {
+        background: linear-gradient(135deg, #4f46e5, #9333ea);
+        transform: translateY(-4px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 14px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .hero-text h1 {
+          font-size: 36px;
+        }
+
+        .hero-text p {
+          font-size: 18px;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .hero-btn-primary,
+        .hero-btn-secondary {
+          width: 100%;
+          max-width: 300px;
+        }
+
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+
+        .stat-card {
+          padding: 24px 16px;
+        }
+
+        .stat-number {
+          font-size: 28px;
+        }
+
+        .section-title {
+          font-size: 32px;
+        }
+
+        .about-content {
+          grid-template-columns: 1fr;
+        }
+
+        .about-text h2 {
+          font-size: 32px;
+        }
+
+        .internship-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+    <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+    <link rel="icon" type="image/png" href="iwl.png" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="header-content">
+        <a href="#" class="logo">
+          <div class="logo-icon">
+            <img src="iwl.png" alt="iw" id="iwLogo" />
+          </div>
+          <span class="logo-text">InternWala</span>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#internships">Internships</a></li>
+            <li><a href="#testimonials">Success Stories</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li>
+              <a
+                href="https://forms.gle/VAVAPQ757kPmjYsL6"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="header-btn"
+                >Get Started</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <button class="mobile-menu-btn">☰</button>
+      </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 id="hero-headline">
+              Transform Your Career with Real-World Internships
+            </h1>
+            <p id="hero-subheadline">
+              Performance-based stipends, expert mentorship, and verified
+              certificates. Join 10,000+ students building their future with
+              InternWala.
+            </p>
+          </div>
+          <div class="hero-buttons">
+            <a
+              href="https://forms.gle/VAVAPQ757kPmjYsL6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hero-btn-primary"
+              >Start Your Internship</a
+            >
+            <a href="#internships" class="hero-btn-secondary"
+              >View All Programs</a
+            >
+          </div>
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">🎓</div>
+              <div class="stat-number">10,000+</div>
+              <div class="stat-label">Students already joined</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">📈</div>
+              <div class="stat-number">95%</div>
+              <div class="stat-label">Success Rate in Career Growth</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🏢</div>
+              <div class="stat-number">50+</div>
+              <div class="stat-label">Hiring & Internship Partners</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">💰</div>
+              <div class="stat-number">₹4.5 LPA</div>
+              <div class="stat-label">Average Fresher Package</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Why Choose Section -->
+    <section class="why-choose">
+      <div class="container">
+        <h2 class="section-title">Why Choose InternWala?</h2>
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-icon">🚀</div>
+            <h3>Live Projects</h3>
+            <p>Work on real-world projects and gain practical experience</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">👨‍���</div>
+            <h3>Expert Mentorship</h3>
+            <p>Direct guidance and doubt solving from industry experts</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">🎓</div>
+            <h3>Verified Certificate</h3>
+            <p>
+              Get an Industry-Recognized Internship Certificate & Official Offer
+              Letter from Our Company.
+            </p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">💼</div>
+            <h3>Placement Support</h3>
+            <p>Resume building, interview prep aur placement assistance</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">📚</div>
+            <h3>Interview Prep Material</h3>
+            <p>
+              Free interview preparation blog, DOCX notes, HR &amp; technical
+              Q/A list, or top YouTube videos — to build job confidence
+            </p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">🎁</div>
+            <h3>Free Learning Resources</h3>
+            <p>
+              Free courses, reference videos, PDFs, templates and study guides —
+              completely free for the growth of all students
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Categories Section -->
+    <section class="categories">
+      <div class="container">
+        <h2 class="section-title">Explore by Category</h2>
+        <div class="category-grid">
+          <div class="category-card">
+            <div class="category-icon">💻</div>
+            <h3>Web Development</h3>
+          </div>
+          <div class="category-card">
+            <div class="category-icon">📱</div>
+            <h3>Android Development</h3>
+          </div>
+          <div class="category-card">
+            <div class="category-icon">📊</div>
+            <h3>Data Science</h3>
+          </div>
+          <div class="category-card">
+            <div class="category-icon">🎨</div>
+            <h3>UI/UX Design</h3>
+          </div>
+          <div class="category-card">
+            <div class="category-icon">☁️</div>
+            <h3>Cloud Computing</h3>
+          </div>
+          <div class="category-card">
+            <div class="category-icon">🔒</div>
+            <h3>Cybersecurity</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Internships Section -->
+    <section class="internships" id="internships">
+      <div class="container">
+        <h2 class="section-title">
+          Kickstart Your Career With These Internship Opportunities
+        </h2>
+        <div class="internship-grid">
+
+
+              <div class="internship-card">
+            <div class="company-header">
+              <div class="company-logo">WD</div>
+              <div class="company-info">
+                <h3>Web Designing</h3>
+                <p>InternWala</p>
+              </div>
+            </div>
+            <div class="stipend-badge">Performance-Based Stipend</div>
+            <div class="stipend-note">
+              ⭐ Performance-Based Stipend Available (Based on work quality
+              &amp; consistency).
+            </div>
+            <div class="skills">
+              <span class="skill-pill">HTML5</span>
+              <span class="skill-pill">CSS</span>
+              <span class="skill-pill">JavaScript</span>
+            </div>
+            <div class="duration">⏱️ 1-3 months</div>
+            <a
+              href="https://forms.gle/VAVAPQ757kPmjYsL6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="apply-btn"
+              >Apply Now</a
+            >
+          </div>
+
+
+          <!-- Internship Card 1 -->
+          <div class="internship-card">
+            <div class="company-header">
+              <div class="company-logo">FD</div>
+              <div class="company-info">
+                <h3>Frontend Developer</h3>
+                <p>InternWala</p>
+              </div>
+            </div>
+            <div class="stipend-badge">Performance-Based Stipend</div>
+            <div class="stipend-note">
+              ⭐ Performance-Based Stipend Available (Based on work quality
+              &amp; consistency).
+            </div>
+            <div class="skills">
+              <span class="skill-pill">React</span>
+              <span class="skill-pill">JavaScript</span>
+              <span class="skill-pill">CSS</span>
+            </div>
+            <div class="duration">⏱️ 1-6 months</div>
+            <a
+              href="https://forms.gle/VAVAPQ757kPmjYsL6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="apply-btn"
+              >Apply Now</a
+            >
+          </div>
+
+
+          <!-- Internship Card 2 -->
+          <div class="internship-card">
+            <div class="company-header">
+              <div class="company-logo">DS</div>
+              <div class="company-info">
+                <h3>Data Science Intern</h3>
+                <p>InternWala</p>
+              </div>
+            </div>
+            <div class="stipend-badge">Performance-Based Stipend</div>
+            <div class="stipend-note">
+              ⭐ Performance-Based Stipend Available (Based on work quality
+              &amp; consistency).
+            </div>
+            <div class="skills">
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">ML</span>
+              <span class="skill-pill">Analytics</span>
+            </div>
+            <div class="duration">⏱️ 1-6 months</div>
+            <a
+              href="https://forms.gle/VAVAPQ757kPmjYsL6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="apply-btn"
+              >Apply Now</a
+            >
+          </div>
+          <!-- Internship Card 3 -->
+          <div class="internship-card">
+            <div class="company-header">
+              <div class="company-logo">UX</div>
+              <div class="company-info">
+                <h3>UI/UX Designer</h3>
+                <p>InternWala</p>
+              </div>
+            </div>
+            <div class="stipend-badge">Performance-Based Stipend</div>
+            <div class="stipend-note">
+              ⭐ Performance-Based Stipend Available (Based on work quality
+              &amp; consistency).
+            </div>
+            <div class="skills">
+              <span class="skill-pill">Figma</span>
+              <span class="skill-pill">Adobe XD</span>
+              <span class="skill-pill">Prototyping</span>
+            </div>
+            <div class="duration">⏱️ 3-5 months</div>
+            <a
+              href="https://forms.gle/VAVAPQ757kPmjYsL6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="apply-btn"
+              >Apply Now</a
+            >
+          </div>
+          <!-- Internship Card 4 -->
+          <div class="internship-card">
+            <div class="company-header">
+              <div class="company-logo">BD</div>
+              <div class="company-info">
+                <h3>Backend Developer</h3>
+                <p>InternWala</p>
+              </div>
+            </div>
+            <div class="stipend-badge">Performance-Based Stipend</div>
+            <div class="stipend-note">
+              ⭐ Performance-Based Stipend Available (Based on work quality
+              &amp; consistency).
+            </div>
+            <div class="skills">
+              <span class="skill-pill">Nodejs</span>
+              <span class="skill-pill">Express</span>
+              <span class="skill-pill">MongoDb</span>
+            </div>
+            <div class="duration">⏱️ 1-6 months</div>
+            <a
+              href="https://forms.gle/VAVAPQ757kPmjYsL6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="apply-btn"
+              >Apply Now</a
+            >
+          </div>
+          <!-- Internship Card 5 -->
+          <div class="internship-card">
+            <div class="company-header">
+              <div class="company-logo">MD</div>
+              <div class="company-info">
+                <h3>MERN Stack Developer</h3>
+                <p>InternWala</p>
+              </div>
+            </div>
+            <div class="stipend-badge">Performance-Based Stipend</div>
+            <div class="stipend-note">
+              ⭐ Performance-Based Stipend Available (Based on work quality
+              &amp; consistency).
+            </div>
+            <div class="skills">
+              <span class="skill-pill">ReactJs</span>
+              <span class="skill-pill">Nodejs</span>
+              <span class="skill-pill">MongoDb</span>
+              <span class="skill-pill">ExpressJs</span>
+            </div>
+            <div class="duration">⏱️3 - 6 months</div>
+            <a
+              href="https://forms.gle/VAVAPQ757kPmjYsL6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="apply-btn"
+              >Apply Now</a
+            >
+          </div>
+          <!-- Internship Card 6 -->
+          <div class="internship-card">
+            <div class="company-header">
+              <div class="company-logo">CY</div>
+              <div class="company-info">
+                <h3>Cybersecurity Intern</h3>
+                <p>InternWala</p>
+              </div>
+            </div>
+            <div class="stipend-badge">Performance-Based Stipend</div>
+            <div class="stipend-note">
+              ⭐ Performance-Based Stipend Available (Based on work quality
+              &amp; consistency).
+            </div>
+            <div class="skills">
+              <span class="skill-pill">Network Security</span>
+              <span class="skill-pill">Penetration Testing</span>
+              <span class="skill-pill">Python</span>
+            </div>
+            <div class="duration">⏱️ 4-6 months</div>
+            <a
+              href="https://forms.gle/VAVAPQ757kPmjYsL6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="apply-btn"
+              >Apply Now</a
+            >
+          </div>
+        
+          <div class="internship-card">
+            <div class="company-header">
+              <div class="company-logo">FD</div>
+              <div class="company-info">
+                <h3>Full Stack Developer</h3>
+                <p>InternWala</p>
+              </div>
+            </div>
+            <div class="stipend-badge">Performance-Based Stipend</div>
+            <div class="stipend-note">
+              ⭐ Performance-Based Stipend Available (Based on work quality
+              &amp; consistency).
+            </div>
+            <div class="skills">
+              <span class="skill-pill">HTML5 + CSS3</span>
+              <span class="skill-pill">ReactJs + Tailwindcss</span>
+              <span class="skill-pill">Nodejs + MongoDb</span>
+            </div>
+            <div class="duration">⏱️ 3-6 months</div>
+            <a
+              href="https://forms.gle/VAVAPQ757kPmjYsL6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="apply-btn"
+              >Apply Now</a
+            >
+          </div>
+
+
+          
+          <div class="internship-card">
+            <div class="company-header">
+              <div class="company-logo">DA</div>
+              <div class="company-info">
+                <h3>Data Analytics</h3>
+                <p>InternWala</p>
+              </div>
+            </div>
+            <div class="stipend-badge">Performance-Based Stipend</div>
+            <div class="stipend-note">
+              ⭐ Performance-Based Stipend Available (Based on work quality
+              &amp; consistency).
+            </div>
+            <div class="skills">
+              <span class="skill-pill">Python (Pandas+NumPy) </span>
+              <span class="skill-pill">Excel</span>
+              <span class="skill-pill">Power Bi</span>
+              <span class="skill-pill">Sql</span>
+            </div>
+            <div class="duration">⏱️ 3-6 months</div>
+            <a
+              href="https://forms.gle/VAVAPQ757kPmjYsL6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="apply-btn"
+              >Apply Now</a
+            >
+          </div>
+          
+          <div class="internship-card">
+            <div class="company-header">
+              <div class="company-logo">DM</div>
+              <div class="company-info">
+                <h3>Digital Marketing</h3>
+                <p>InternWala</p>
+              </div>
+            </div>
+            <div class="stipend-badge">Performance-Based Stipend</div>
+            <div class="stipend-note">
+              ⭐ Performance-Based Stipend Available (Based on work quality
+              &amp; consistency).
+            </div>
+            <div class="skills">
+              <span class="skill-pill">SEO</span>
+              <span class="skill-pill">Canva</span>
+              <span class="skill-pill">Content Writing</span>
+              <span class="skill-pill">Social Media Management</span>
+            </div>
+            <div class="duration">⏱️ 3-6 months</div>
+            <a
+              href="https://forms.gle/VAVAPQ757kPmjYsL6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="apply-btn"
+              >Apply Now</a
+            >
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+    <!-- Companies Section -->
+    <section class="companies">
+      <div class="container">
+        <h2 class="section-title">Our Students Work At</h2>
+        <p
+          style="
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            margin-bottom: 50px;
+          "
+        >
+          Top companies jo InternWala interns ko hire karte hain
+        </p>
+        <div class="companies-grid">
+          <div class="company-card">
+            <h4>TCS</h4>
+          </div>
+          <div class="company-card">
+            <h4>Wipro</h4>
+          </div>
+          <div class="company-card">
+            <h4>Infosys</h4>
+          </div>
+          <div class="company-card">
+            <h4>Cognizant</h4>
+          </div>
+          <div class="company-card">
+            <h4>HCL</h4>
+          </div>
+          <div class="company-card">
+            <h4>Tech Mahindra</h4>
+          </div>
+          <div class="company-card">
+            <h4>Accenture</h4>
+          </div>
+          <div class="company-card">
+            <h4>Capgemini</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2>Ready to Start Your Journey?</h2>
+        <p>
+          Join 10,000+ students who transformed their careers with InternWala
+        </p>
+        <a
+          href="https://forms.gle/VAVAPQ757kPmjYsL6"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="cta-btn"
+          >Apply for Internship Now</a
+        >
+      </div>
+    </section>
+    <!-- About Section -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="about-content">
+          <div class="about-text">
+            <h2 id="about-heading">About InternWala</h2>
+            <p id="about-text">
+              We connect talented students and freshers with top companies
+              offering genuine internship opportunities. Our platform focuses on
+              performance-based learning, ensuring you gain real-world
+              experience while earning based on your quality of work and
+              consistency. With expert mentorship, verified certificates, and
+              placement support, we're committed to transforming student
+              careers.
+            </p>
+          </div>
+          <div class="about-illustration">
+            <svg
+              width="400"
+              height="300"
+              viewbox="0 0 400 300"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="50"
+                y="50"
+                width="300"
+                height="200"
+                rx="20"
+                fill="#e9d5ff"
+                opacity="0.6"
+              />
+              <rect
+                x="80"
+                y="80"
+                width="240"
+                height="140"
+                rx="15"
+                fill="#c084fc"
+                opacity="0.7"
+              />
+              <circle cx="200" cy="100" r="30" fill="#a855f7" />
+              <rect
+                x="120"
+                y="150"
+                width="160"
+                height="15"
+                rx="7"
+                fill="#9333ea"
+              />
+              <rect
+                x="120"
+                y="180"
+                width="120"
+                height="15"
+                rx="7"
+                fill="#9333ea"
+                opacity="0.7"
+              />
+              <rect
+                x="120"
+                y="210"
+                width="140"
+                height="15"
+                rx="7"
+                fill="#9333ea"
+                opacity="0.5"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+      <div class="container">
+        <h2 class="section-title">What Students Say</h2>
+        <div class="testimonial-grid">
+          <div class="testimonial-card">
+            <div class="reviewer-info">
+              <div class="reviewer-photo">AK</div>
+              <div class="reviewer-details">
+                <h4>Aarav Kumar</h4>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+              </div>
+            </div>
+            <p class="testimonial-text">
+              "Found an amazing web development internship through Internship
+              Insight. The performance-based model motivated me to deliver my
+              best work!"
+            </p>
+          </div>
+          <div class="testimonial-card">
+            <div class="reviewer-info">
+              <div class="reviewer-photo">PS</div>
+              <div class="reviewer-details">
+                <h4>Priya Sharma</h4>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+              </div>
+            </div>
+            <p class="testimonial-text">
+              "The platform is super intuitive and helped me land my dream data
+              science internship. Highly recommend for all freshers!"
+            </p>
+          </div>
+          <div class="testimonial-card">
+            <div class="reviewer-info">
+              <div class="reviewer-photo">RG</div>
+              <div class="reviewer-details">
+                <h4>Rahul Gupta</h4>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+              </div>
+            </div>
+            <p class="testimonial-text">
+              "Great opportunities with verified companies. Got real hands-on
+              experience and earned based on my performance. Thank you
+              Internship Insight!"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Certificate & Kit Showcase Section -->
+    <section class="certificate-kit-section">
+      <div class="container">
+        <h2 class="section-title">What You'll Receive</h2>
+        <p class="section-subtitle">
+          Complete your internship and get certified with exclusive merchandise
+        </p>
+        <div class="showcase-grid">
+          <!-- Certificate Card -->
+          <div class="showcase-card">
+            <div class="showcase-image-container">
+              <svg
+                width="100%"
+                height="100%"
+                viewbox="0 0 400 300"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <!-- Certificate Background -->
+                <rect
+                  x="20"
+                  y="20"
+                  width="360"
+                  height="260"
+                  fill="#ffffff"
+                  stroke="#4f46e5"
+                  stroke-width="4"
+                  rx="10"
+                />
+                <rect
+                  x="30"
+                  y="30"
+                  width="340"
+                  height="240"
+                  fill="#faf5ff"
+                  stroke="#9333ea"
+                  stroke-width="2"
+                  rx="8"
+                />
+                <!-- Decorative corners -->
+                <circle cx="50" cy="50" r="15" fill="#4f46e5" opacity="0.2" />
+                <circle cx="350" cy="50" r="15" fill="#9333ea" opacity="0.2" />
+                <circle cx="50" cy="250" r="15" fill="#4f46e5" opacity="0.2" />
+                <circle cx="350" cy="250" r="15" fill="#9333ea" opacity="0.2" />
+                <!-- Certificate content -->
+                <text
+                  x="200"
+                  y="80"
+                  font-size="24"
+                  font-weight="bold"
+                  fill="#4f46e5"
+                  text-anchor="middle"
+                >
+                  CERTIFICATE
+                </text>
+                <text
+                  x="200"
+                  y="105"
+                  font-size="14"
+                  fill="#6b21a8"
+                  text-anchor="middle"
+                >
+                  of Completion
+                </text>
+                <!-- Name placeholder -->
+                <rect
+                  x="100"
+                  y="120"
+                  width="200"
+                  height="3"
+                  fill="#9333ea"
+                  opacity="0.3"
+                />
+                <text
+                  x="200"
+                  y="145"
+                  font-size="12"
+                  fill="#64748b"
+                  text-anchor="middle"
+                >
+                  Student Name
+                </text>
+                <!-- Description lines -->
+                <rect
+                  x="80"
+                  y="160"
+                  width="240"
+                  height="2"
+                  fill="#d8b4fe"
+                  opacity="0.5"
+                />
+                <rect
+                  x="100"
+                  y="175"
+                  width="200"
+                  height="2"
+                  fill="#d8b4fe"
+                  opacity="0.5"
+                />
+                <rect
+                  x="90"
+                  y="190"
+                  width="220"
+                  height="2"
+                  fill="#d8b4fe"
+                  opacity="0.5"
+                />
+                <!-- Seal -->
+                <circle cx="200" cy="230" r="25" fill="#4f46e5" opacity="0.8" />
+                <circle
+                  cx="200"
+                  cy="230"
+                  r="20"
+                  fill="none"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                />
+                <text
+                  x="200"
+                  y="237"
+                  font-size="14"
+                  font-weight="bold"
+                  fill="#ffffff"
+                  text-anchor="middle"
+                >
+                  ✓
+                </text>
+              </svg>
+            </div>
+            <div class="showcase-content">
+              <h3>🏆 Verified Certificate</h3>
+              <p>
+                Government recognized completion certificate and official offer
+                letter with your achievements
+              </p>
+            </div>
+          </div>
+          <!-- T-Shirt Card -->
+          <div class="showcase-card">
+            <div class="showcase-image-container">
+              <svg
+                width="100%"
+                height="100%"
+                viewbox="0 0 400 300"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <!-- T-Shirt -->
+                <defs>
+                  <lineargradient
+                    id="tshirtGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop
+                      offset="0%"
+                      style="stop-color: #4f46e5; stop-opacity: 1"
+                    />
+                    <stop
+                      offset="100%"
+                      style="stop-color: #9333ea; stop-opacity: 1"
+                    />
+                  </lineargradient>
+                </defs>
+                <!-- T-Shirt body -->
+                <path
+                  d="M 120 120 L 120 90 L 150 80 L 180 100 L 220 100 L 250 80 L 280 90 L 280 120 L 270 260 L 130 260 Z"
+                  fill="url(#tshirtGradient)"
+                  opacity="0.9"
+                />
+                <!-- Sleeves -->
+                <ellipse
+                  cx="110"
+                  cy="110"
+                  rx="25"
+                  ry="40"
+                  fill="url(#tshirtGradient)"
+                  opacity="0.8"
+                />
+                <ellipse
+                  cx="290"
+                  cy="110"
+                  rx="25"
+                  ry="40"
+                  fill="url(#tshirtGradient)"
+                  opacity="0.8"
+                />
+                <!-- Collar -->
+                <path
+                  d="M 180 100 Q 200 85 220 100"
+                  fill="none"
+                  stroke="#ffffff"
+                  stroke-width="3"
+                />
+                <!-- Logo placeholder -->
+                <rect
+                  x="170"
+                  y="150"
+                  width="60"
+                  height="50"
+                  fill="#ffffff"
+                  opacity="0.3"
+                  rx="5"
+                />
+                <text
+                  x="200"
+                  y="180"
+                  font-size="20"
+                  font-weight="bold"
+                  fill="#ffffff"
+                  text-anchor="middle"
+                >
+                  &lt;/&gt;
+                </text>
+              </svg>
+            </div>
+            <div class="showcase-content">
+              <h3>👕 Branded T-Shirt</h3>
+              <p>
+                Premium quality InternWala branded t-shirt to showcase your
+                achievement
+              </p>
+            </div>
+          </div>
+          <!-- Water Bottle Card -->
+          <div class="showcase-card">
+            <div class="showcase-image-container">
+              <svg
+                width="100%"
+                height="100%"
+                viewbox="0 0 400 300"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <lineargradient
+                    id="bottleGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="0%"
+                    y2="100%"
+                  >
+                    <stop
+                      offset="0%"
+                      style="stop-color: #60a5fa; stop-opacity: 0.8"
+                    />
+                    <stop
+                      offset="100%"
+                      style="stop-color: #3b82f6; stop-opacity: 0.9"
+                    />
+                  </lineargradient>
+                </defs>
+                <!-- Bottle cap -->
+                <rect
+                  x="170"
+                  y="60"
+                  width="60"
+                  height="20"
+                  fill="#4f46e5"
+                  rx="3"
+                />
+                <rect
+                  x="175"
+                  y="55"
+                  width="50"
+                  height="10"
+                  fill="#6366f1"
+                  rx="2"
+                />
+                <!-- Bottle neck -->
+                <path
+                  d="M 175 80 L 170 100 L 230 100 L 225 80 Z"
+                  fill="#e0e7ff"
+                />
+                <!-- Bottle body -->
+                <rect
+                  x="160"
+                  y="100"
+                  width="80"
+                  height="150"
+                  fill="url(#bottleGradient)"
+                  rx="8"
+                />
+                <rect
+                  x="165"
+                  y="105"
+                  width="70"
+                  height="140"
+                  fill="#ffffff"
+                  opacity="0.2"
+                  rx="6"
+                />
+                <!-- Logo on bottle -->
+                <circle cx="200" cy="160" r="25" fill="#ffffff" opacity="0.4" />
+                <text
+                  x="200"
+                  y="170"
+                  font-size="20"
+                  font-weight="bold"
+                  fill="#4f46e5"
+                  text-anchor="middle"
+                >
+                  &lt;/&gt;
+                </text>
+                <!-- Water level -->
+                <rect
+                  x="165"
+                  y="180"
+                  width="70"
+                  height="65"
+                  fill="#60a5fa"
+                  opacity="0.4"
+                  rx="6"
+                />
+              </svg>
+            </div>
+            <div class="showcase-content">
+              <h3>🧴 Water Bottle</h3>
+              <p>
+                Durable stainless steel water bottle with InternWala branding
+                for daily use
+              </p>
+            </div>
+          </div>
+          <!-- Notebook Card -->
+          <div class="showcase-card">
+            <div class="showcase-image-container">
+              <svg
+                width="100%"
+                height="100%"
+                viewbox="0 0 400 300"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <!-- Notebook -->
+                <defs>
+                  <lineargradient
+                    id="notebookGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop
+                      offset="0%"
+                      style="stop-color: #7c3aed; stop-opacity: 1"
+                    />
+                    <stop
+                      offset="100%"
+                      style="stop-color: #9333ea; stop-opacity: 1"
+                    />
+                  </lineargradient>
+                </defs>
+                <!-- Notebook cover -->
+                <rect
+                  x="130"
+                  y="60"
+                  width="140"
+                  height="190"
+                  fill="url(#notebookGradient)"
+                  rx="8"
+                />
+                <rect
+                  x="135"
+                  y="65"
+                  width="130"
+                  height="180"
+                  fill="#ffffff"
+                  opacity="0.1"
+                  rx="6"
+                />
+                <!-- Spiral binding -->
+                <circle cx="145" cy="80" r="4" fill="#ffffff" opacity="0.6" />
+                <circle cx="145" cy="100" r="4" fill="#ffffff" opacity="0.6" />
+                <circle cx="145" cy="120" r="4" fill="#ffffff" opacity="0.6" />
+                <circle cx="145" cy="140" r="4" fill="#ffffff" opacity="0.6" />
+                <circle cx="145" cy="160" r="4" fill="#ffffff" opacity="0.6" />
+                <circle cx="145" cy="180" r="4" fill="#ffffff" opacity="0.6" />
+                <circle cx="145" cy="200" r="4" fill="#ffffff" opacity="0.6" />
+                <circle cx="145" cy="220" r="4" fill="#ffffff" opacity="0.6" />
+                <!-- Logo on notebook -->
+                <rect
+                  x="160"
+                  y="110"
+                  width="80"
+                  height="80"
+                  fill="#ffffff"
+                  opacity="0.2"
+                  rx="10"
+                />
+                <text
+                  x="200"
+                  y="145"
+                  font-size="24"
+                  font-weight="bold"
+                  fill="#ffffff"
+                  text-anchor="middle"
+                >
+                  &lt;/&gt;
+                </text>
+                <text
+                  x="200"
+                  y="170"
+                  font-size="12"
+                  fill="#ffffff"
+                  text-anchor="middle"
+                  opacity="0.9"
+                >
+                  InternWala
+                </text>
+              </svg>
+            </div>
+            <div class="showcase-content">
+              <h3>📓 Premium Notebook</h3>
+              <p>
+                High-quality branded notebook perfect for taking notes and
+                planning your career
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="showcase-note">
+          <p>
+            🎁 <strong>Bonus:</strong> Complete your internship with excellence
+            and receive the complete InternWala welcome kit along with your
+            verified certificate!
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>InternWala</h3>
+            <p
+              style="
+                color: rgba(255, 255, 255, 0.7);
+                line-height: 1.6;
+                margin-bottom: 20px;
+              "
+            >
+              Empowering students to find their perfect internship opportunities
+              with performance-based growth.
+            </p>
+            <div style="color: rgba(255, 255, 255, 0.8); margin-bottom: 16px">
+              <p style="margin-bottom: 8px">
+                📞 <strong>Contact:</strong> 6205525335
+              </p>
+              <p>📍 <strong>Location:</strong> Bhopal, Madhya Pradesh</p>
+            </div>
+            <div class="social-icons">
+              <a
+                href="#"
+                class="social-icon"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Facebook"
+                >📘</a
+              >
+              <a
+                href="#"
+                class="social-icon"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Twitter"
+                >🐦</a
+              >
+              <a
+                href="#"
+                class="social-icon"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="LinkedIn"
+                >💼</a
+              >
+              <a
+                href="#"
+                class="social-icon"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Instagram"
+                >📷</a
+              >
+              <a
+                href="https://wa.me/916205525335"
+                class="social-icon"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="WhatsApp"
+                >💬</a
+              >
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Browse Internships</a></li>
+              <li><a href="#">Categories</a></li>
+              <li><a href="#">About Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Support</h3>
+            <ul class="footer-links">
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>For Companies</h3>
+            <ul class="footer-links">
+              <li><a href="#">Post Internship</a></li>
+              <li><a href="#">Pricing</a></li>
+              <li><a href="#">Resources</a></li>
+              <li><a href="#">Partner with Us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p id="footer-copyright">
+            © 2025 InternWala. All rights reserved. Built with passion for
+            students in whole world.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const defaultConfig = {
+        hero_headline: "Transform Your Career with Real-World Internships",
+        hero_subheadline:
+          "Performance-based stipends, expert mentorship, and verified certificates. Join 10,000+ students building their future with InternWala.",
+        about_heading: "About InternWala",
+        about_text:
+          "We connect talented students and freshers with top companies offering genuine internship opportunities. Our platform focuses on performance-based learning, ensuring you gain real-world experience while earning based on your quality of work and consistency. With expert mentorship, verified certificates, and placement support, we're committed to transforming student careers.",
+        footer_copyright:
+          "© 2025 InternWala. All rights reserved. Built with passion for students in whole world.",
+        background_color: "#4f46e5",
+        text_color: "#ffffff",
+        accent_color: "#9333ea",
+        font_family: "Inter",
+        font_size: 16,
+      };
+
+      async function onConfigChange(config) {
+        const customFont = config.font_family || defaultConfig.font_family;
+        const baseSize = config.font_size || defaultConfig.font_size;
+        const baseFontStack =
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+        document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        document.body.style.fontSize = `${baseSize}px`;
+
+        const heroHeadline = document.getElementById("hero-headline");
+        if (heroHeadline) {
+          heroHeadline.textContent =
+            config.hero_headline || defaultConfig.hero_headline;
+          heroHeadline.style.fontSize = `${baseSize * 3.5}px`;
+        }
+
+        const heroSubheadline = document.getElementById("hero-subheadline");
+        if (heroSubheadline) {
+          heroSubheadline.textContent =
+            config.hero_subheadline || defaultConfig.hero_subheadline;
+          heroSubheadline.style.fontSize = `${baseSize * 1.25}px`;
+        }
+
+        const aboutHeading = document.getElementById("about-heading");
+        if (aboutHeading) {
+          aboutHeading.textContent =
+            config.about_heading || defaultConfig.about_heading;
+          aboutHeading.style.fontSize = `${baseSize * 3}px`;
+        }
+
+        const aboutText = document.getElementById("about-text");
+        if (aboutText) {
+          aboutText.textContent = config.about_text || defaultConfig.about_text;
+          aboutText.style.fontSize = `${baseSize * 1.125}px`;
+        }
+
+        const footerCopyright = document.getElementById("footer-copyright");
+        if (footerCopyright) {
+          footerCopyright.textContent =
+            config.footer_copyright || defaultConfig.footer_copyright;
+        }
+
+        const sectionTitles = document.querySelectorAll(".section-title");
+        sectionTitles.forEach((title) => {
+          title.style.fontSize = `${baseSize * 3}px`;
+        });
+      }
+
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange,
+          mapToCapabilities: (config) => ({
+            recolorables: [],
+            borderables: [],
+            fontEditable: {
+              get: () => config.font_family || defaultConfig.font_family,
+              set: (value) => {
+                window.elementSdk.config.font_family = value;
+                window.elementSdk.setConfig({ font_family: value });
+              },
+            },
+            fontSizeable: {
+              get: () => config.font_size || defaultConfig.font_size,
+              set: (value) => {
+                window.elementSdk.config.font_size = value;
+                window.elementSdk.setConfig({ font_size: value });
+              },
+            },
+          }),
+          mapToEditPanelValues: (config) =>
+            new Map([
+              [
+                "hero_headline",
+                config.hero_headline || defaultConfig.hero_headline,
+              ],
+              [
+                "hero_subheadline",
+                config.hero_subheadline || defaultConfig.hero_subheadline,
+              ],
+              [
+                "about_heading",
+                config.about_heading || defaultConfig.about_heading,
+              ],
+              ["about_text", config.about_text || defaultConfig.about_text],
+              [
+                "footer_copyright",
+                config.footer_copyright || defaultConfig.footer_copyright,
+              ],
+            ]),
+        });
+      }
+
+      // Header scroll effect
+      window.addEventListener("scroll", function () {
+        const header = document.getElementById("header");
+        if (window.scrollY > 50) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth scroll animation
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'9a1a9b4c13847f06',t:'MTc2MzY2OTU5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
