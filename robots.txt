@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://internwala.netlify.app/sitemap.xml
